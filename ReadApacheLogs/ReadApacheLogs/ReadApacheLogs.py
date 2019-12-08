@@ -43,14 +43,14 @@ def main():
                     print("exception")
 
     
-    path = 'C:\\cygwin\\home\\Lawrence Perepolkin\\logs\\RequestsPerSecond.csv'
+    path = 'C:\\cygwin\\home\\Lawrence Perepolkin\\logs\\RequestsPerSecond2.csv'
     with open(path, 'w') as f:
         f.write("Datetime,Requests/Second\n")
         for t in sorted(perSecondDict.keys()):
             dd = '{0:%Y-%m-%d %H:%M:%S}'.format(t)
             f.write("%s,%s\n"%(dd,str(perSecondDict[t])))
 
-    path = 'C:\\cygwin\\home\\Lawrence Perepolkin\\logs\\IpCount.csv'
+    path = 'C:\\cygwin\\home\\Lawrence Perepolkin\\logs\\IpCount2.csv'
     with open(path, 'w') as f:
         f.write("IP,Count\n")
         for t in sorted(ipCount.keys()):

@@ -1,0 +1,103 @@
+
+
+F:/SelkirkCollege/apache/www.new.dev/R-Project/TimeSeries/CC-time-series-master/CC-time-series-master
+
+
+setwd("F:/SelkirkCollege/apache/www.new.dev/R-Project/TimeSeries/CC-time-series-master/CC-time-series-master")
+install.packages("ggplot2")
+install.packages("forecast")
+install.packages("dplyr")
+install.packages("colortools")
+
+library(ggplot2)
+library(forecast)
+library(dplyr)
+library(colortools)
+
+monthly_milk <- read.csv("monthly_milk.csv")  # Milk production per cow per month
+daily_milk <- read.csv("daily_milk.csv")  # Milk production per cow per milking
+
+head(monthly_milk)
+class(monthly_milk)
+class(monthly_milk$month)
+monthly_milk$month_date <- as.Date(monthly_milk$month, format = "%Y-%m-%d")
+class(monthly_milk$month_date)
+format(monthly_milk$month_date, format = "%Y-%B-%u")
+class(format(monthly_milk$month_date, format = "%Y-%B-%u"))  # class is no longer `Date`
+
+head(daily_milk)
+class(daily_milk$date_time)
+
+daily_milk$date_time_posix <- as.POSIXct(daily_milk$date_time, format = "%Y-%m-%d %H:%M:%S")
+class(daily_milk$date_time_posix)
+# Correcting badly formatted date data
+monthly_milk$bad_date <- format(monthly_milk$month_date, format = "%d/%b/%Y-%u")
+head(monthly_milk$bad_date)  # Awful... 
+class(monthly_milk$bad_date)  # Not in `Date` class
+monthly_milk$good_date <- as.Date(monthly_milk$bad_date, format = "%d/%b/%Y-%u")
+head(monthly_milk$good_date)
+class(monthly_milk$good_date)
+library(ggplot2)
+(time_plot <- ggplot(monthly_milk, aes(x = month_date, y = milk_prod_per_cow_kg)) +
+	geom_line() +
+	scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+	theme_classic())
+	
+(time_plot_2 <- ggplot(daily_milk, aes(x = date_time_posix, y = milk_prod_per_cow_kg)) +
+	geom_line() +
+	scale_x_datetime(date_labels = "%p-%d", date_breaks = "36 hour") +
+	theme_classic())	
+	
+
+install.packages("ggplot2")
+library(ggplot2)
+
+dev.new(width = 20, height = 12, unit = "in")
+
+setwd("F:/SelkirkCollege/apache/www.new.dev/R-Project/TimeSeries")
+requestspersec <- read.csv("RequestsPerSecond2.csv")  # 
+head(requestspersec)
+class(requestspersec$Datetime)
+###> class(requestspersec$Datetime)
+###  [1] "factor"
+requestspersec$Date <- as.POSIXct(requestspersec$Datetime, format = "%Y-%m-%d %H:%M:%S")
+class(requestspersec$Date)
+head(requestspersec)
+
+
+(time_plot_2 <- ggplot(requestspersec, aes(x = date_time_posix, y = Requests.Second)) +
+	geom_line() +
+	scale_x_datetime(date_labels = "%D", date_breaks = "1 day") +
+	theme_classic())
+	
+(time_plot_2 <- ggplot(requestspersec, aes(x = Date, y = Requests.Second)) +	geom_line())
+
+(time_plot_2 <- ggplot(requestspersec, aes(x = Date, y = Requests.Second)) + scale_x_datetime(date_breaks = "7 day",  minor_breaks = "1 day")  + geom_line())
+		
+	 scale_x_datetime(breaks = date_breaks("1 day"),  minor_breaks = date_breaks("2 hour"))
+
+time_plot_2 <- ggplot( requestspersec, aes(x = Date, y = Requests.Second)) + scale_x_datetime(date_breaks = "7 day",  minor_breaks = "1 day")  + geom_line() 
+time_plot_2 + labs(title="Server Apache Log Files", x ="Date Time", y = "Requests per Second")
+
+DateTime 
+setwd("F:/SelkirkCollege/apache/www.new.dev/R-Project/TimeSeries/BCNet")
+requestspersec <- read.csv("selkirk.caVMNetworkUsageJunNov2019_new1.csv")  # 
+requestspersec$Date <- as.POSIXct(requestspersec$DateTime, format = "%m/%d/%Y %H:%M:%S")
+class(requestspersec$Date)
+time_plot_2 <- ggplot( requestspersec, aes(x = Date, y = KBps)) + scale_x_datetime(date_breaks = "1 month",  minor_breaks = "1 day")  + geom_line()
+time_plot_2 + labs(title="BC Net Files", x ="Date Time", y = "KBps")
+head(requestspersec)
+
+"6/1/2019 8:00:00",
+
+dev.new(width = 20, height = 12, unit = "in")
+
+setwd("F:/SelkirkCollege/apache/www.new.dev/R-Project/TimeSeries/BCNet")
+requestspersec <- read.csv("selkirkcaDataRecieved.csv")  # 
+head(requestspersec)
+class(requestspersec$DateTime)
+###> class(requestspersec$Datetime)
+###  [1] "factor"
+requestspersec$Date <- as.POSIXct(requestspersec$DateTime, format = "%m/%d/%Y %H:%M:%S")
+class(requestspersec$Date)
+head(requestspersec)
