@@ -54,7 +54,7 @@ library(ggplot2)
 
 dev.new(width = 20, height = 12, unit = "in")
 
-setwd("F:/SelkirkCollege/apache/www.new.dev/R-Project/TimeSeries")
+setwd("C:/cygwin/home/Lawrence Perepolkin/logs")
 requestspersec <- read.csv("RequestsPerSecond2.csv")  # 
 head(requestspersec)
 class(requestspersec$Datetime)
