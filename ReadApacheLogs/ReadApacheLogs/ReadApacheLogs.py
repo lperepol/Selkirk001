@@ -90,7 +90,7 @@ def main():
     path = 'C:\\cygwin\\home\\Lawrence Perepolkin\\logs\\RequestsPerDay.csv'
     path = 'C:\\Cygwin64\\home\\lperepolkin1\\logs\\RequestsPerDay.csv'
     with open(path, 'w') as f:
-        f.write("Datetime,Requests/Second\n")
+        f.write("Datetime,Requests/Day\n")
         for t in sorted(perDayDict.keys()):
             dd = '{0:%Y-%m-%d}'.format(t)
             f.write("%s,%s\n"%(dd,str(perDayDict[t])))
